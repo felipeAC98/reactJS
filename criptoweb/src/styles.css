@@ -1,0 +1,14 @@
+
+*{
+    margin:0;
+    padding:0;
+    outline:0;
+    box-sizing: border-box;
+
+}
+
+body{
+    font-family: Staatliches, Helvetica, sans-serif;
+    background: #444;
+    color: #333;
+}

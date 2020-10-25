@@ -1,0 +1,52 @@
+.cripto-list{
+    background: #444;
+    color: #fff;
+    width: 100%;
+    padding: 60px 0 0 0;
+}
+
+.cripto-list button:hover{
+    background: #f3ba2f;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.cripto-list button:hover{
+    color: #fff;
+}
+
+.cripto-list button:hover #changePercent{
+    color: #fff !important;
+    transition: 200ms;
+}
+
+.cripto-info{
+    background: #f3ba2f;
+    color: #444;
+    width: 70%;
+    
+    line-height: 2;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px;
+    margin: 10px auto;
+
+    border: 2px solid #f3ba2f;
+    border-radius: 15px;
+
+    align-items:center;
+
+}
+
+.cripto-info #changePercent{
+    background: #444;
+    padding: 9px;
+    border-radius: 15px;
+}
+
+.cripto-price{
+
+    display: flex;
+}
