@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import api from '../../services/api'
 
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import './styles.css';
 import '../../fonts.css';
@@ -13,7 +13,6 @@ export default class Main extends Component{
     //necessario para conseguir utilizar as variaveis no metodo render em tempo real conforme elas sofrerem alteracoes devido ao codigo ou backend
     state={
         criptoInfo:[],
-        page: 1,
     };
 
     //Primeiro componente a ser executado dentro desse componente
@@ -42,9 +41,8 @@ export default class Main extends Component{
 
         const changePercentQuery = document.querySelectorAll('.cripto-info #changePercent')
 
+        //Deixando o percentual vermelho ou verde
         changePercentQuery.forEach(changePercentObj=>{
-
-            console.log(changePercentObj.dataset.changepercent)
             
             if(changePercentObj.dataset.changepercent>=0){
                 changePercentObj.style.color=`#30B673`;
@@ -64,16 +62,19 @@ export default class Main extends Component{
                 {this.state.criptoInfo.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
                     <article key={criptoInfo.symbol}>
                     
-                        <button class="cripto-info">
-                            
-                            <div id="symbol"> {criptoInfo.symbol} </div>
-                        
-                            <div id="cripto-price"> ${criptoInfo.lastPrice} </div>
-                         
-                            <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
+                       <Link to={`cripto/${criptoInfo.symbol}`}>
 
-                    
-                        </button>
+                            <button className="cripto-info" >
+                                
+                                <div id="symbol"> {criptoInfo.symbol} </div>
+                            
+                                <div id="cripto-price"> ${criptoInfo.lastPrice} </div>
+                            
+                                <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
+
+                            </button>
+
+                        </Link>
 
                     </article>
                   

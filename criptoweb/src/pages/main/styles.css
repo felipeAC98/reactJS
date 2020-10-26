@@ -1,5 +1,5 @@
 .cripto-list{
-    background: #444;
+    background: linear-gradient(329.54deg, #fff 0%, #444 100%);
     color: #fff;
     width: 100%;
     padding: 60px 0 0 0;
@@ -20,6 +20,11 @@
     transition: 200ms;
 }
 
+.cripto-list a{
+    text-decoration: none;
+    width: 70%;
+}
+
 .cripto-info{
     background: #f3ba2f;
     color: #444;
@@ -34,16 +39,17 @@
     margin: 10px auto;
 
     border: 2px solid #f3ba2f;
-    border-radius: 15px;
+    border-radius: 5px;
 
     align-items:center;
 
 }
 
 .cripto-info #changePercent{
+    width: 90px;
     background: #444;
     padding: 9px;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .cripto-price{

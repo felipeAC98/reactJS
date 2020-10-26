@@ -13,3 +13,26 @@
     align-items:center;
 
 }
+
+.CriptoWeb-Header h1{
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.CriptoWeb-Header #homeButton{
+    font-weight: bold;
+    font-size: 20px;
+    color: #444;
+
+    position: absolute;
+    right: 30px;
+    line-height:0;
+
+    border:0;
+
+    background: #f3ba2f;
+    display: flex;
+
+    cursor: pointer;
+
+}

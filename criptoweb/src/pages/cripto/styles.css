@@ -1,0 +1,27 @@
+.cripto-data{
+    padding: 70px 0 0 0;
+
+}
+
+.cripto-data #symbolName{
+    color: #FFF;
+    width: 100%;
+    letter-spacing: 2px;
+    display: flex;  
+    justify-content:center;
+}
+
+.cripto-detailDefinition{
+    color: #FFF;
+    letter-spacing: 1px;
+
+    margin:10px 30px;
+
+    display: flex;  
+    justify-content:space-between;
+
+}
+
+.cripto-details{
+    padding: 30px 0 0 0;
+}
