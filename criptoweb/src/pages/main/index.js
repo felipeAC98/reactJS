@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {  useState, useEffect, useContext } from 'react';
 import api from '../../services/api'
 
 import {Link} from 'react-router-dom'
@@ -7,23 +7,16 @@ import './styles.css';
 import '../../fonts.css';
 import '../../animations.css';
 
-export default class Main extends Component{
-
+export default function Main(){
     //Variaveis de estado
     //necessario para conseguir utilizar as variaveis no metodo render em tempo real conforme elas sofrerem alteracoes devido ao codigo ou backend
-    state={
-        criptoInfo:[],
-    };
-
-    //Primeiro componente a ser executado dentro desse componente
-    componentDidMount(){ //componente do react
-        this.loadCriptoValues();
-    }
-
-    loadCriptoValues = async () =>{
-
-        const response = await api.get(`/api/v3/ticker/24hr`); //passando o numero da pagina (atributo estado) como parametro
     
+    const [criptoInfo,setCriptoInfo]=useState([]);
+    
+    useEffect(async ()=> {
+
+        const response = await api.get(`/api/v3/ticker/24hr`);
+
         const criptoInfo=response.data
 
         const totalCriptos=criptoInfo.length
@@ -37,7 +30,7 @@ export default class Main extends Component{
             }
         }
 
-        this.setState({criptoInfo: usdtCriptos})
+        setCriptoInfo(usdtCriptos);
 
         const changePercentQuery = document.querySelectorAll('.cripto-info #changePercent')
 
@@ -53,34 +46,34 @@ export default class Main extends Component{
 
 
         })
-    }
+    },[setCriptoInfo]);
 
-    render(){
-        return (
-            <div className="cripto-list">
+    return (
+        <div className="cripto-list">
 
-                {this.state.criptoInfo.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
-                    <article key={criptoInfo.symbol}>
-                    
-                       <Link to={`cripto/${criptoInfo.symbol}`}>
+            {criptoInfo.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
+                <article key={criptoInfo.symbol}>
+                
+                    <Link to={`cripto/${criptoInfo.symbol}`}>
 
-                            <button className="cripto-info" >
-                                
-                                <div id="symbol"> {criptoInfo.symbol} </div>
+                        <button className="cripto-info" >
                             
-                                <div id="cripto-price"> ${criptoInfo.lastPrice} </div>
-                            
-                                <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
+                            <div id="symbol"> {criptoInfo.symbol} </div>
+                        
+                            <div id="cripto-price"> ${criptoInfo.lastPrice} </div>
+                        
+                            <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
 
-                            </button>
+                        </button>
 
-                        </Link>
+                    </Link>
 
-                    </article>
-                  
-                ))}     
+                </article>
+                
+            ))}     
 
-            </div>
-        );
-    }
+        </div>
+    );
+
+
 }
