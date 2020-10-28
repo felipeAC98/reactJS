@@ -1,4 +1,4 @@
-import React, {  useState, useEffect, useContext } from 'react';
+import React, {  useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
 import api from '../../services/api'
@@ -28,12 +28,12 @@ export default function Cripto(){
     },[setCriptoInfo,symbol]); //passando os parametros aqui ele vai ficar chamando em tempo real a funcao para atualizar os dados
 
     return (
-        <div className="cripto-data">
-            <h1 id="symbolName" >{criptoInfo.symbol}</h1>
+        <div className="cripto-data animate-up">
+            <h1 className="animate-up" id="symbolName" >{criptoInfo.symbol}</h1>
 
-            <div className="cripto-details">
+            <div className="cripto-details animate-up">
 
-                <div className="cripto-detailDefinition">
+                <div className="cripto-detailDefinition ">
                     <h2> Price </h2>
                     <h2>{criptoInfo.lastPrice}</h2>
                 </div>

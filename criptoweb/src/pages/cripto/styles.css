@@ -1,6 +1,6 @@
 .cripto-data{
     padding: 70px 0 0 0;
-
+    animation-delay: 400ms;
 }
 
 .cripto-data #symbolName{
@@ -9,6 +9,7 @@
     letter-spacing: 2px;
     display: flex;  
     justify-content:center;
+    
 }
 
 .cripto-detailDefinition{
@@ -19,6 +20,8 @@
 
     display: flex;  
     justify-content:space-between;
+
+
 
 }
 

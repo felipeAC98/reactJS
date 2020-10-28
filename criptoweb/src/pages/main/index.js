@@ -2,6 +2,7 @@ import React, {  useState, useEffect, useContext } from 'react';
 import api from '../../services/api'
 
 import {Link} from 'react-router-dom'
+import { Button } from '@material-ui/core';
 
 import './styles.css';
 import '../../fonts.css';
@@ -34,6 +35,7 @@ export default function Main(){
 
         const changePercentQuery = document.querySelectorAll('.cripto-info #changePercent')
 
+        let counter = 0;
         //Deixando o percentual vermelho ou verde
         changePercentQuery.forEach(changePercentObj=>{
             
@@ -46,6 +48,17 @@ export default function Main(){
 
 
         })
+
+        const buttonQuery = document.querySelectorAll('.cripto-info ')
+
+        buttonQuery.forEach(button=>{
+
+            button.style.animationDelay =`${counter}s`;
+
+            counter=counter+0.01;
+
+        })
+
     },[setCriptoInfo]);
 
     return (
@@ -54,9 +67,9 @@ export default function Main(){
             {criptoInfo.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
                 <article key={criptoInfo.symbol}>
                 
-                    <Link to={`cripto/${criptoInfo.symbol}`}>
+                    <Link to={`cripto/${criptoInfo.symbol}`} className="cripto-info animate-up" >
 
-                        <button className="cripto-info" >
+                        <Button variant="contained" >
                             
                             <div id="symbol"> {criptoInfo.symbol} </div>
                         
@@ -64,7 +77,7 @@ export default function Main(){
                         
                             <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
 
-                        </button>
+                        </Button>
 
                     </Link>
 

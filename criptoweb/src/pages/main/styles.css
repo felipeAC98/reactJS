@@ -3,15 +3,24 @@
     color: #fff;
     width: 100%;
     padding: 60px 0 0 0;
+
 }
 
-.cripto-list button:hover{
+.cripto-list button{
+    margin: 0;
+    width:100%;
     background: #f3ba2f;
+    
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.cripto-list button:hover{
+    background: #C3931D;
     cursor: pointer;
     transition: 200ms;
-}
-
-.cripto-list button:hover{
     color: #fff;
 }
 
@@ -28,17 +37,15 @@
 .cripto-info{
     background: #f3ba2f;
     color: #444;
-    width: 70%;
-    
-    line-height: 2;
+    width: 100%;
+
 
     display: flex;
     justify-content: space-between;
 
-    padding: 10px;
     margin: 10px auto;
 
-    border: 2px solid #f3ba2f;
+    border:0px solid #f3ba2f;
     border-radius: 5px;
 
     align-items:center;

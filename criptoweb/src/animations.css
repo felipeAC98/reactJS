@@ -1,7 +1,7 @@
 @keyframes up{
     from{
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(200px);
 
     }
 
@@ -16,7 +16,7 @@
 
 .animate-up{
     animation-name: up;
-    animation-duration: 300ms;
+    animation-duration: 400ms;
     animation-fill-mode: backwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
 
 }

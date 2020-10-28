@@ -7,7 +7,7 @@ import './styles.css';
 import '../../fonts.css';
 import '../../animations.css';
 
-
+import HomeIcon from '@material-ui/icons/Home';
 
 export default class Header extends Component{
 
@@ -29,7 +29,7 @@ export default class Header extends Component{
             <h1>Cripto_Web</h1>
 
             <a href="/">
-              <button id="homeButton">Home</button>
+              <button id="homeButton"><HomeIcon/></button>
             </a>
           </div>
         );
