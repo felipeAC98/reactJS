@@ -13,10 +13,28 @@
 
     }
 }
+@keyframes right{
+    from{
+        transform: translateX(-200%);
 
+    }
+
+    to{
+
+        transform: translateX(0);
+
+    } 
+}
 .animate-up{
     animation-name: up;
     animation-duration: 400ms;
+    animation-fill-mode: backwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
+
+}
+
+.animate-right{
+    animation-name: right;
+    animation-duration: 500ms;
     animation-fill-mode: backwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
 
 }

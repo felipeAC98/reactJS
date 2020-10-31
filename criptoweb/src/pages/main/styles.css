@@ -1,9 +1,41 @@
+.main-container{
+
+}
+
+.cripto-filter{
+    position: fixed; /*fixa ele em um contexto a cima, interessante notar que a laminas voltam ao lugar q estavam quando este eh habilitado*/
+    
+    height:15%;
+    width: 15rem;
+    margin: 8rem 0 ;
+    padding: 0;
+    background:#f3ba2f;
+    border-radius: 0 5px 5px 0;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    animation-delay: 1.5s;
+
+}
+
+.cripto-filter #filterSelection{
+
+}
 .cripto-list{
     background: linear-gradient(329.54deg, #fff 0%, #444 100%);
     color: #fff;
     width: 100%;
-    padding: 60px 0 0 0;
+    padding: 3.7rem 0 0 12rem;
 
+}
+
+/*tudo dentro do link*/
+.cripto-list a{
+    text-decoration: none;
+    width: clamp(10rem, 60vw, 100rem); 
 }
 
 .cripto-list button{
@@ -27,11 +59,6 @@
 .cripto-list button:hover #changePercent{
     color: #fff !important;
     transition: 200ms;
-}
-
-.cripto-list a{
-    text-decoration: none;
-    width: 70%;
 }
 
 .cripto-info{
