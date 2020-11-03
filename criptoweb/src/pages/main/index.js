@@ -12,13 +12,16 @@ import '../../animations.css';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+
+//Serch button
+import TextField from '@material-ui/core/TextField';
+
 const useStyles = makeStyles((theme) => ({
     formControl: {
-      margin: theme.spacing(1),
+      margin: 0,
       minWidth: 120,
     },
     selectEmpty: {
@@ -76,37 +79,17 @@ function sortCriptoPercentage(usdtCriptos){
 };
 
 export default function Main(){
+
     //Variaveis de estado
     //necessario para conseguir utilizar as variaveis no metodo render em tempo real conforme elas sofrerem alteracoes devido ao codigo ou backend
     
-    const [criptoInfo,setCriptoInfo]=useState([]);
-    const [criptoOrder, setCriptoOrder]=useState([""]);
+    const [criptoRawData,setCriptRawData]=useState([]);    //Somente uma variavel para salvar os valores obtidos da api
     
-    useEffect(async ()=> {
+    const [criptoRenderedData,setCriptoRenderedData]=useState([]);          //Valores dessa variavel sao os que sao printados na tela
 
-        const response = await api.get(`/api/v3/ticker/24hr`);
+    const [criptoOrder, setCriptoOrder]=useState([""]);
 
-        const criptoInfo=response.data
-
-        const totalCriptos=criptoInfo.length
-
-        let usdtCriptos=[]
-
-        for(let i=0;i<totalCriptos;i++){
-
-            if(criptoInfo[i].symbol.indexOf("USDT")>0){
-
-                criptoInfo[i].lastPrice=parseFloat(criptoInfo[i].lastPrice);
-                criptoInfo[i].priceChangePercent=parseFloat(criptoInfo[i].priceChangePercent);
-                usdtCriptos.push(criptoInfo[i]);
-            }
-
-        }
-
-
-        sortCripto(usdtCriptos,criptoOrder);
-
-        setCriptoInfo(usdtCriptos.slice());
+    useEffect(()=> {
 
         const changePercentQuery = document.querySelectorAll('.cripto-info #changePercent')
 
@@ -121,7 +104,6 @@ export default function Main(){
                 changePercentObj.style.color=`#EF5757`;
             }
 
-
         })
 
         const buttonQuery = document.querySelectorAll('.cripto-info ')
@@ -134,41 +116,117 @@ export default function Main(){
 
         })
 
-    },[setCriptoInfo,criptoOrder]);
+    },[criptoOrder,criptoRawData,criptoRenderedData]);
 
+    //Search 
+
+    const handleSearchChange = async (event) => {
+
+        let criptoInfoTemp=criptoRawData;
+
+        const searchValue=event.target.value;
+
+        const totalCriptos=criptoInfoTemp.length;
+
+        let usdtCriptos =[];
+    
+        for(let i=0;i<totalCriptos;i++){
+            if(criptoInfoTemp[i].symbol.includes(searchValue)>0){
+
+                criptoInfoTemp[i].lastPrice=parseFloat(criptoInfoTemp[i].lastPrice);
+                criptoInfoTemp[i].priceChangePercent=parseFloat(criptoInfoTemp[i].priceChangePercent);
+                usdtCriptos.push(criptoInfoTemp[i]);
+            }
+
+        }
+
+        setCriptoRenderedData(usdtCriptos);
+
+        console.log(criptoRenderedData)
+    }
     //Filter button selectors
     const classes = useStyles();
 
-    const handleChange = (event) => {
+    const handleChange =  async (event) => {
+
+        let usdtCriptos=criptoRenderedData;
+
         setCriptoOrder(event.target.value);
+
+        sortCripto(usdtCriptos,event.target.value);
+
+        setCriptoRenderedData(usdtCriptos);
+
+    };
+
+    const refreshCripto = async () => {
+
+        let usdtCriptos =[];
+
+        const response = await api.get(`/api/v3/ticker/24hr`);
+
+        let criptoInfoTemp=response.data
+    
+        const totalCriptos=criptoInfoTemp.length
+    
+        for(let i=0;i<totalCriptos;i++){
+    
+            if(criptoInfoTemp[i].symbol.indexOf("USDT")>0){
+    
+                criptoInfoTemp[i].lastPrice=parseFloat(criptoInfoTemp[i].lastPrice);
+                criptoInfoTemp[i].priceChangePercent=parseFloat(criptoInfoTemp[i].priceChangePercent);
+                usdtCriptos.push(criptoInfoTemp[i]);
+            }
+    
+        }
+    
+        setCriptoRenderedData(usdtCriptos);
+
+        setCriptRawData(usdtCriptos);
+
     };
 
     return (
 
         <div className="main-container">
-            <div className="cripto-filter animate-right">
-                Filters
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="filterSelection">Select your filter</InputLabel>
-                        <Select
-                        labelId="filterSelection"
-                        id="filterSelection"
-                        value={criptoOrder}
-                        onChange={handleChange}
-                        >
-                            <MenuItem value={"none"}>None</MenuItem>
-                            <MenuItem value={"price"}>Price</MenuItem>
-                            <MenuItem value={"percentageChange"}>Percentage change</MenuItem>
-                            <MenuItem value={"name"}>Name</MenuItem>
-                            
-                        </Select>
-                   
-                </FormControl>
+            <div className="sidebar animate-right">
+
+                <div id="searchDiv">
+                    <h2> Search </h2>
+                    <form id="search" noValidate autoComplete="off">
+                        <TextField id="standard-basic" label="Symbol" onChange={handleSearchChange}/>
+                    </form>
+                </div>
+
+                <div id="filtersDiv">
+                    <h2> Filters </h2>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="filterSelection">Select your filter</InputLabel>
+                            <Select
+                            labelId="filterSelection"
+                            id="filterSelection"
+                            value={criptoOrder}
+                            onChange={handleChange}
+                            >
+                                <MenuItem value={"none"}>None</MenuItem>
+                                <MenuItem value={"price"}>Price</MenuItem>
+                                <MenuItem value={"percentageChange"}>Percentage change</MenuItem>
+                                <MenuItem value={"name"}>Name</MenuItem>
+                                
+                            </Select>
+                    
+                    </FormControl>
+
+                </div>
+
+                <Button onClick={refreshCripto} >Refresh</Button>
+
 
             </div> 
+            
             <div className="cripto-list">
             
-                {criptoInfo.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
+                {criptoRenderedData.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
                     <article key={criptoInfo.symbol}>
                     
                         <Link to={`cripto/${criptoInfo.symbol}`} className="cripto-info animate-up" >

@@ -2,13 +2,14 @@
 
 }
 
-.cripto-filter{
+.sidebar{
     position: fixed; /*fixa ele em um contexto a cima, interessante notar que a laminas voltam ao lugar q estavam quando este eh habilitado*/
     
-    height:15%;
+    height:auto;
+
     width: 15rem;
     margin: 8rem 0 ;
-    padding: 0;
+    padding: 1rem;
     background:#f3ba2f;
     border-radius: 0 5px 5px 0;
 
@@ -21,11 +22,17 @@
 
 }
 
-.cripto-filter #filterSelection{
+.sidebar #filtersDiv{
+    margin: 1rem;
+    width: 100%;
+}
 
+.sidebar #searchDiv{
+    margin: 1rem;
+    width: 100%;
 }
 .cripto-list{
-    background: linear-gradient(329.54deg, #fff 0%, #444 100%);
+    background: #444;
     color: #fff;
     width: 100%;
     padding: 3.7rem 0 0 12rem;
