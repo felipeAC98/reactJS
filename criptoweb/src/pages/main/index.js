@@ -19,6 +19,10 @@ import Select from '@material-ui/core/Select';
 //Serch button
 import TextField from '@material-ui/core/TextField';
 
+
+//Loading circle
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: 0,
@@ -91,40 +95,24 @@ export default function Main(){
 
     useEffect(()=> {
 
-        const changePercentQuery = document.querySelectorAll('.cripto-info #changePercent')
+        refreshCripto();
 
-        let counter = 0;
-        //Deixando o percentual vermelho ou verde
-        changePercentQuery.forEach(changePercentObj=>{
-            
-            if(changePercentObj.dataset.changepercent>=0){
-                changePercentObj.style.color=`#30B673`;
-            }
-            else{
-                changePercentObj.style.color=`#EF5757`;
-            }
-
-        })
-
-        const buttonQuery = document.querySelectorAll('.cripto-info ')
-
-        buttonQuery.forEach(button=>{
-
-            button.style.animationDelay =`${counter}s`;
-
-            counter=counter+0.01;
-
-        })
-
-    },[criptoOrder,criptoRawData,criptoRenderedData]);
+    },[]);
 
     //Search 
 
-    const handleSearchChange = async (event) => {
+    const handleSearchChange = (event) => {
+
+        //Setando um tempo antes de atualizar a busca
+        setTimeout(() => {
+            search(event.target.value);
+          }, 500)
+
+    }
+
+    const search = async (searchValue) => {
 
         let criptoInfoTemp=criptoRawData;
-
-        const searchValue=event.target.value;
 
         const totalCriptos=criptoInfoTemp.length;
 
@@ -184,11 +172,12 @@ export default function Main(){
 
         setCriptRawData(usdtCriptos);
 
-    };
 
+    };
     return (
 
         <div className="main-container">
+
             <div className="sidebar animate-right">
 
                 <div id="searchDiv">
@@ -208,7 +197,6 @@ export default function Main(){
                             value={criptoOrder}
                             onChange={handleChange}
                             >
-                                <MenuItem value={"none"}>None</MenuItem>
                                 <MenuItem value={"price"}>Price</MenuItem>
                                 <MenuItem value={"percentageChange"}>Percentage change</MenuItem>
                                 <MenuItem value={"name"}>Name</MenuItem>
@@ -223,7 +211,8 @@ export default function Main(){
 
 
             </div> 
-            
+        
+
             <div className="cripto-list">
             
                 {criptoRenderedData.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
@@ -237,7 +226,7 @@ export default function Main(){
                             
                                 <div id="cripto-price"> ${criptoInfo.lastPrice} </div>
                             
-                                <div id="changePercent" data-changepercent={criptoInfo.priceChangePercent} >  {criptoInfo.priceChangePercent}% </div>
+                                <div id="changePercent" style={{color: criptoInfo.priceChangePercent >= 0 ? '#30B673' : '#EF5757'}}>  {criptoInfo.priceChangePercent}% </div>
 
                             </Button>
 
