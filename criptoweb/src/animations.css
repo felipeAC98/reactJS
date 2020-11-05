@@ -15,13 +15,39 @@
 }
 @keyframes right{
     from{
-        transform: translateX(-200%);
+        transform: translateX(-100%);
 
     }
 
     to{
 
         transform: translateX(0);
+
+    } 
+}
+
+@keyframes left{
+    from{
+        transform: translateX(0);
+
+    }
+
+    to{
+
+        transform: translateX(-96%);
+
+    } 
+}
+
+@keyframes center{
+    from{
+        transform: translateX(0);
+
+    }
+
+    to{
+
+        transform: translateX(0%);
 
     } 
 }
@@ -36,5 +62,19 @@
     animation-name: right;
     animation-duration: 500ms;
     animation-fill-mode: backwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
+
+}
+
+.animate-left{
+    animation-name: left;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
+
+}
+
+.animate-center{
+    animation-name: center;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards; /*fica com as propriedas que estiverem no "to" depois de ocorrerem*/
 
 }

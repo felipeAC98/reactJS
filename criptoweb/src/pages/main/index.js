@@ -19,9 +19,9 @@ import Select from '@material-ui/core/Select';
 //Serch button
 import TextField from '@material-ui/core/TextField';
 
-
-//Loading circle
-import CircularProgress from '@material-ui/core/CircularProgress';
+//Filter hide button
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -93,9 +93,17 @@ export default function Main(){
 
     const [criptoOrder, setCriptoOrder]=useState([""]);
 
+    const [hideOptions, setHideOptions]=useState([]);
+
+    const [optionsClassNames, setOptionsClassNames]=useState([""]);
+
     useEffect(()=> {
 
         refreshCripto();
+
+        setHideOptions(false);
+
+        setOptionsClassNames("animate-right");
 
     },[]);
 
@@ -174,11 +182,33 @@ export default function Main(){
 
 
     };
+
+    //Hide search and filters
+    const hide = async ()=>{
+
+        if(hideOptions===false){
+            setHideOptions(true);
+
+            setOptionsClassNames("animate-left");
+
+        }
+        else{
+
+            setHideOptions(false);
+
+            setOptionsClassNames("animate-right");
+        }
+    };
+
     return (
 
         <div className="main-container">
 
-            <div className="sidebar animate-right">
+            <div className={`sidebar ${optionsClassNames}`}>
+
+                    <Button id="hide-button" onClick={hide} buttonStyle={{ borderRadius: 50 }} style={{ borderRadius: 50 }}>
+                        {hideOptions == true? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
+                    </Button>
 
                 <div id="searchDiv">
                     <h2> Search </h2>
@@ -213,7 +243,7 @@ export default function Main(){
             </div> 
         
 
-            <div className="cripto-list">
+            <div className={`cripto-list`} style={{padding: hideOptions == true? '3.7rem 0 0 0' : '3.7rem 0 0 12rem' }}>
             
                 {criptoRenderedData.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
                     <article key={criptoInfo.symbol}>
