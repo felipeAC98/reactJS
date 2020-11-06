@@ -18,6 +18,8 @@
 
     align-items: center;
 
+    transition: 0.5s;
+
 }
 
 .sidebar #filtersDiv{

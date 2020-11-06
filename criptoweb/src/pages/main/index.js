@@ -189,14 +189,11 @@ export default function Main(){
         if(hideOptions===false){
             setHideOptions(true);
 
-            setOptionsClassNames("animate-left");
-
         }
         else{
 
             setHideOptions(false);
 
-            setOptionsClassNames("animate-right");
         }
     };
 
@@ -204,7 +201,7 @@ export default function Main(){
 
         <div className="main-container">
 
-            <div className={`sidebar ${optionsClassNames}`}>
+            <div className={`sidebar ${optionsClassNames}`} style={{left: hideOptions == true? '-14.5rem' : '0' }}>
 
                     <Button id="hide-button" onClick={hide} buttonStyle={{ borderRadius: 50 }} style={{ borderRadius: 50 }}>
                         {hideOptions == true? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
