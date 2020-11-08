@@ -23,6 +23,9 @@ import TextField from '@material-ui/core/TextField';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
+//Hidden menu
+import Hidden from '@material-ui/core/Hidden';
+
 const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: 0,
@@ -96,6 +99,9 @@ export default function Main(){
     const [hideOptions, setHideOptions]=useState([]);
 
     const [optionsClassNames, setOptionsClassNames]=useState([""]);
+
+    //Drawer
+    const [drawerStatus, setDrawerStatus] = useState(false);
 
     useEffect(()=> {
 
@@ -201,45 +207,48 @@ export default function Main(){
 
         <div className="main-container">
 
-            <div className={`sidebar ${optionsClassNames}`} style={{left: hideOptions == true? '-14.5rem' : '0' }}>
+            <Hidden mdDown>
+                
+                <div className={`sidebar ${optionsClassNames}`} style={{left: hideOptions == true? '-14.5rem' : '0' }}>
 
-                    <Button id="hide-button" onClick={hide} buttonStyle={{ borderRadius: 50 }} style={{ borderRadius: 50 }}>
-                        {hideOptions == true? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
-                    </Button>
+                        <Button id="hide-button" onClick={hide} buttonStyle={{ borderRadius: 50 }} style={{ borderRadius: 50 }}>
+                            {hideOptions == true? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
+                        </Button>
 
-                <div id="searchDiv">
-                    <h2> Search </h2>
-                    <form id="search" noValidate autoComplete="off">
-                        <TextField id="standard-basic" label="Symbol" onChange={handleSearchChange}/>
-                    </form>
-                </div>
+                    <div id="searchDiv">
+                        <h2> Search </h2>
+                        <form id="search" noValidate autoComplete="off">
+                            <TextField id="standard-basic" label="Symbol" onChange={handleSearchChange}/>
+                        </form>
+                    </div>
 
-                <div id="filtersDiv">
-                    <h2> Filters </h2>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="filterSelection">Select your filter</InputLabel>
-                            <Select
-                            labelId="filterSelection"
-                            id="filterSelection"
-                            value={criptoOrder}
-                            onChange={handleChange}
-                            >
-                                <MenuItem value={"price"}>Price</MenuItem>
-                                <MenuItem value={"percentageChange"}>Percentage change</MenuItem>
-                                <MenuItem value={"name"}>Name</MenuItem>
-                                
-                            </Select>
-                    
-                    </FormControl>
+                    <div id="filtersDiv">
+                        <h2> Filters </h2>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="filterSelection">Select your filter</InputLabel>
+                                <Select
+                                labelId="filterSelection"
+                                id="filterSelection"
+                                value={criptoOrder}
+                                onChange={handleChange}
+                                >
+                                    <MenuItem value={"price"}>Price</MenuItem>
+                                    <MenuItem value={"percentageChange"}>Percentage change</MenuItem>
+                                    <MenuItem value={"name"}>Name</MenuItem>
+                                    
+                                </Select>
+                        
+                        </FormControl>
 
-                </div>
+                    </div>
 
-                <Button onClick={refreshCripto} >Refresh</Button>
+                    <Button onClick={refreshCripto} >Refresh</Button>
 
 
-            </div> 
-        
-
+                </div> 
+            
+            </Hidden>
+            
             <div className={`cripto-list`} style={{padding: hideOptions == true? '3.7rem 0 0 0' : '3.7rem 0 0 12rem' }}>
             
                 {criptoRenderedData.map(criptoInfo => ( //se colocar os parenteses nao precisa dar o return //estou pegando cada um dos products dessa lista
@@ -264,6 +273,8 @@ export default function Main(){
                 ))}    
             </div>
         </div>
+
+        
     );
 
 
